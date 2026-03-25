@@ -446,14 +446,15 @@ async function handleCompleteUpload(
     });
   }
 
-  const rows = validatedUploads.map((item) => ({
-    guest_name: guestName,
-    message,
-    original_file_name: item.originalFileName,
-    storage_path: item.storagePath,
-    file_size: item.fileSize,
-    mime_type: item.mimeType,
-    abuse_fingerprint: fingerprint.slice(0, 32)
+  const rows: Database["public"]["Tables"]["uploads_evento"]["Insert"][] =
+    validatedUploads.map((item) => ({
+      guest_name: guestName,
+      message,
+      original_file_name: item.originalFileName,
+      storage_path: item.storagePath,
+      file_size: item.fileSize,
+      mime_type: item.mimeType,
+      abuse_fingerprint: fingerprint.slice(0, 32)
   }));
 
   const { error } = await supabase.from("uploads_evento").insert(rows);

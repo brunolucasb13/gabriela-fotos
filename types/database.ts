@@ -1,3 +1,11 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
 export interface Database {
   public: {
     Tables: {
@@ -25,6 +33,7 @@ export interface Database {
           created_at?: string;
         };
         Update: {
+          id?: string;
           guest_name?: string | null;
           message?: string | null;
           original_file_name?: string;
@@ -34,6 +43,7 @@ export interface Database {
           abuse_fingerprint?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
@@ -43,5 +53,11 @@ export interface Database {
   };
 }
 
-export type UploadRecord = Database["public"]["Tables"]["uploads_evento"]["Row"];
+export type UploadRecord =
+  Database["public"]["Tables"]["uploads_evento"]["Row"];
 
+export type UploadInsert =
+  Database["public"]["Tables"]["uploads_evento"]["Insert"];
+
+export type UploadUpdate =
+  Database["public"]["Tables"]["uploads_evento"]["Update"];
