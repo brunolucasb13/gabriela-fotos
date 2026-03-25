@@ -43,8 +43,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     throw new Error("Não foi possível carregar os uploads do evento.");
   }
 
+  const uploadRows = (data ?? []) as UploadRecord[];
+
   const uploads = await Promise.all(
-    (data ?? []).map(async (upload: UploadRecord): Promise<UploadRowView> => {
+    uploadRows.map(async (upload): Promise<UploadRowView> => {
       const previewPromise = adminClient.storage
         .from(bucketName)
         .createSignedUrl(upload.storage_path, 60 * 60);
@@ -122,4 +124,3 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     </section>
   );
 }
-

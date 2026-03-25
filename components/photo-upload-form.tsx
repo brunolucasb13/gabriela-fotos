@@ -257,14 +257,15 @@ export function PhotoUploadForm() {
         );
       }
 
-      setSuccessMessage(
-        (completeJson &&
-          typeof completeJson === "object" &&
-          "message" in completeJson &&
-          typeof completeJson.message === "string" &&
-          completeJson.message) ||
-          EVENT_COPY.successMessage
-      );
+      const apiSuccessMessage =
+        completeJson &&
+        typeof completeJson === "object" &&
+        "message" in completeJson &&
+        typeof completeJson.message === "string"
+          ? completeJson.message
+          : EVENT_COPY.successMessage;
+
+      setSuccessMessage(apiSuccessMessage);
 
       setFiles([]);
       setGuestName("");
@@ -400,4 +401,3 @@ export function PhotoUploadForm() {
     </form>
   );
 }
-
